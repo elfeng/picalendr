@@ -1,5 +1,5 @@
 
-const API_KEY = 'TMP_API_KEY';
+const API_KEY = 'TMP_KEY';
 const SAFE_SEARCH_ACTIVATED = 1;
 
 export function getSearchUrl(search, month, year){
@@ -23,3 +23,6 @@ export function getPhotoFileUrl({farm, server, id, secret}){
     return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
 };
 
+export function getPhotoLinkUrl(photo){
+    return photo.urls.url[0]._content;
+};
