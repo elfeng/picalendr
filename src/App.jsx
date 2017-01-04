@@ -42,7 +42,7 @@ class App extends Component {
   render() {
 
     return (
-      <div>
+      <div className="App">
 
         <div className="container-fluid App-header">
 
@@ -55,7 +55,9 @@ class App extends Component {
 
           <div className="row App-form" >
             <div className="col-xs-12 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-2 col-lg-3 ">
-              <input type="text" onChange={this.onInputChange} className="form-control"/>
+              <input type="text" onChange={this.onInputChange} 
+                className="form-control" 
+                autoFocus />
             </div>
 
             <div className="col-xs-6 col-sm-6 col-md-2 col-lg-2">
