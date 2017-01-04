@@ -8,7 +8,7 @@ export default class PhotoListContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchResults: []
+            searchResults: null
         };
         this.getPhotos = this.getPhotos.bind(this);
     }
@@ -30,10 +30,28 @@ export default class PhotoListContainer extends Component {
             .catch(searchError => console.log(searchError));
     }
 
+    hasSearchReturned() {
+        return this.state.searchResults !== null;
+    }
+
+    hasPhotos() {
+        return this.hasSearchReturned() && this.state.searchResults.length > 0
+    }
+
     render() {
+
+        let componentToDisplay = null;
+        if (this.hasSearchReturned()) {
+            if (this.hasPhotos()) {
+                componentToDisplay = <PhotoList photoList={this.state.searchResults} />;
+            } else {
+                componentToDisplay = <span>No photo found</span>;
+            }
+        }
+
         return (
             <div>
-                <PhotoList photoList={this.state.searchResults} />
+                {componentToDisplay}
             </div>
         );
     }
