@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-const DEFAULT_YEAR = 0;
-
 export default class YearSelect extends Component {
 
     constructor(props) {
@@ -10,9 +8,7 @@ export default class YearSelect extends Component {
     }
 
     selectYear(yearNumber) {
-        if (yearNumber !== DEFAULT_YEAR) {
-            this.props.onChange(yearNumber.target.value);
-        }
+        this.props.onChange(yearNumber.target.value);
     }
 
     render() {
@@ -22,8 +18,8 @@ export default class YearSelect extends Component {
         );
 
         return (
-            <select onChange={this.selectYear} className="form-control">
-                <option value={DEFAULT_YEAR}>Year</option>
+            <select onChange={this.selectYear} className="form-control" required>
+                <option value="">Year</option>
                 {yearOptions}
             </select>
         );
