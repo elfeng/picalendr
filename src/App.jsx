@@ -48,7 +48,7 @@ class App extends Component {
 
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-offset-2 col-md-10 col-lg-offset-2 col-lg-10 ">
-              <h1>Picalendr : </h1>
+              <h1>Picalendr:</h1>
               <h2>Flickr search by month</h2>
             </div>
           </div>
