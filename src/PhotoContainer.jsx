@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Photo from './Photo.jsx';
-import { getPhotoInfoUrl, getPhotoFileUrl } from './FlickrHelper.js';
+import { getPhotoInfoUrl, getPhotoFileUrl, getPhotoLinkUrl } from './FlickrHelper.js';
 
 export default class PhotoContainer extends Component {
 
@@ -15,19 +15,21 @@ export default class PhotoContainer extends Component {
     }
 
     getPhoto(photo) {
-        let infoUrl = getPhotoInfoUrl(photo);
-        let self = this;
+        const infoUrl = getPhotoInfoUrl(photo);
+        const self = this;
         axios.get(infoUrl)
             .then(infoResponse => {
                 if (self.isDateTakenKnown(infoResponse)) {
                     let dateTaken = Date.parse(infoResponse.data.photo.dates.taken) / 1000;
                     let datePosted = infoResponse.data.photo.dates.posted;
                     if (dateTaken !== datePosted) {
-                        let url = getPhotoFileUrl(infoResponse.data.photo);
+                        const photoFileUrl = getPhotoFileUrl(infoResponse.data.photo);
+                        const photoLinkUrl = getPhotoLinkUrl(infoResponse.data.photo);
 
                         self.setState({
                             id: infoResponse.data.photo.id,
-                            url: url,
+                            photoFileUrl: photoFileUrl,
+                            photoLinkUrl: photoLinkUrl,
                             dateTaken: dateTaken
                         });
                     }
@@ -38,8 +40,7 @@ export default class PhotoContainer extends Component {
 
 
     isDateTakenKnown(infoResponse) {
-        let granularity = infoResponse.data.photo.dates.takengranularity;
-
+        const granularity = infoResponse.data.photo.dates.takengranularity;
         return granularity < 5;
     }
 
@@ -48,7 +49,7 @@ export default class PhotoContainer extends Component {
         return (
             <div>
                 { this.state ? 
-                    <Photo id={this.state.id} url={this.state.url} dateTaken={this.state.dateTaken} />
+                    <Photo id={this.state.id} url={this.state.photoFileUrl} link={this.state.photoLinkUrl} dateTaken={this.state.dateTaken} />
                     : 
                     <div>Loading</div>
                 }
