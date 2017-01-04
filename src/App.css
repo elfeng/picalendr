@@ -4,17 +4,28 @@
 
 .App-header {
   background-color: #222;
-  height: 100px;
-  padding: 20px;
   color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-#inputs {
-  margin-top: 20px;
+  padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
+.App-form {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.form-control, .btn {
+  margin-bottom: 10px;
+}
+
+h1 {
+  float: left;
+  font-size: 28px;
+}
+
+h2 {
+  padding-top: 7px;
+  margin-left: 10px;
+  font-size: 20px;
+  float: left;
+}

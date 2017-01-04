@@ -22,7 +22,7 @@ export default class YearSelect extends Component {
         );
 
         return (
-            <select onChange={this.selectYear}>
+            <select onChange={this.selectYear} className="form-control">
                 <option value={DEFAULT_YEAR}>Year</option>
                 {yearOptions}
             </select>
