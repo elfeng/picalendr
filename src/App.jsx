@@ -42,13 +42,13 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
+      <div>
 
         <div className="container-fluid App-header">
 
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-offset-2 col-md-10 col-lg-offset-2 col-lg-10 ">
-              <h1>Picalendr:</h1>
+              <h1>Picalendr :&nbsp;</h1>
               <h2>Flickr search by month</h2>
             </div>
           </div>
