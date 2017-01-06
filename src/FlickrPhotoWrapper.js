@@ -33,6 +33,10 @@ export default class FlickrPhotoWrapper {
         return this.photo.urls.url[0]._content;
     }
 
+    getTitle() {
+        return this.photo.title._content;
+    }
+
     getDateTakenFormatted() {
         const dateTakenAsMillis = Date.parse(this.photo.dates.taken);
         const dateTakenAsMoment = moment(dateTakenAsMillis);

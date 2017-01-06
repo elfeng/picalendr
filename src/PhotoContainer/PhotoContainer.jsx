@@ -9,7 +9,7 @@ export default class PhotoContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            photoId: null
+            photoWrapper: null
         };
         this.getPhotoInfoFromFlickr = this.getPhotoInfoFromFlickr.bind(this);
     }
@@ -30,10 +30,7 @@ export default class PhotoContainer extends Component {
         const photoWrapper = new FlickrPhotoWrapper(infoResponse.data);
         if (photoWrapper.isDateTakenKnown()) {
             this.setState({
-                photoId: photoWrapper.photo.id,
-                photoSnapshotUrl: photoWrapper.getSnapshotUrl(),
-                photoLinkUrl: photoWrapper.getLinkUrl(),
-                dateTakenFormatted: photoWrapper.getDateTakenFormatted()
+                photoWrapper: photoWrapper
             });
         }
     }
@@ -41,10 +38,11 @@ export default class PhotoContainer extends Component {
     render() {
 
         let componentToRender = null;
-        if (this.state.photoId !== null) {
-            componentToRender = <Photo id={this.state.photoId}
-                snapshotUrl={this.state.photoSnapshotUrl} linkUrl={this.state.photoLinkUrl}
-                dateTakenFormatted={this.state.dateTakenFormatted} />;
+        if (this.state.photoWrapper !== null) {
+            componentToRender = <Photo id={this.state.photoWrapper.photo.id}
+                snapshotUrl={this.state.photoWrapper.getSnapshotUrl()} linkUrl={this.state.photoWrapper.getLinkUrl()}
+                dateTakenFormatted={this.state.photoWrapper.getDateTakenFormatted()} 
+                title={this.state.photoWrapper.getTitle()} />;
         }
 
         return (componentToRender);

@@ -5,7 +5,7 @@ export default function Photo(props) {
     return (
         <div className="photo">
             <a href={props.linkUrl}>
-                <img src={props.snapshotUrl} alt={props.search}/>
+                <img src={props.snapshotUrl} alt={props.title}/>
                 <div>
                     Taken on: {props.dateTakenFormatted}
                 </div>
