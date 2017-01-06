@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import PhotoList from './PhotoList.jsx';
-import { getSearchUrl } from './FlickrHelper.js';
+import PhotoList from '../PhotoList/PhotoList';
+import { getSearchUrl } from '../FlickrHelper.js';
 
 export default class PhotoListContainer extends Component {
 
@@ -17,10 +17,13 @@ export default class PhotoListContainer extends Component {
         this.getPhotos(nextProps.search, nextProps.month, nextProps.year);
     }
 
+    /**
+     * Calls the Flickr API ton search for photos.
+     */
     getPhotos(search, month, year) {
 
-        let self = this;
-        let searchUrl = getSearchUrl(search, month, year);
+        const self = this;
+        const searchUrl = getSearchUrl(search, month, year);
         axios.get(searchUrl)
             .then(searchResponse => {
                 self.setState({
@@ -34,24 +37,26 @@ export default class PhotoListContainer extends Component {
         return this.state.searchResults !== null;
     }
 
-    hasPhotos() {
-        return this.hasSearchReturned() && this.state.searchResults.length > 0
+    hasSearchReturnedWithResults() {
+        return this.hasSearchReturned() && this.state.searchResults.length > 0;
+    }
+
+    hasSearchReturnedEmpty() {
+        return this.hasSearchReturned() && this.state.searchResults.length === 0;
     }
 
     render() {
 
-        let componentToDisplay = null;
-        if (this.hasSearchReturned()) {
-            if (this.hasPhotos()) {
-                componentToDisplay = <PhotoList photoList={this.state.searchResults} />;
-            } else {
-                componentToDisplay = <span>No photo found</span>;
-            }
+        let componentToRender = null;
+        if (this.hasSearchReturnedWithResults()) {
+            componentToRender = <PhotoList photoList={this.state.searchResults} />;
+        } else if (this.hasSearchReturnedEmpty()){
+            componentToRender = <span>No photo found</span>;
         }
 
         return (
             <div>
-                {componentToDisplay}
+                {componentToRender}
             </div>
         );
     }

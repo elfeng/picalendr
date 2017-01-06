@@ -1,5 +1,5 @@
 import React from 'react';
-import PhotoContainer from './PhotoContainer.jsx';
+import PhotoContainer from '../PhotoContainer/PhotoContainer';
 
 export default function PhotoList(props) {
 

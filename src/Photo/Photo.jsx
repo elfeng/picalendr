@@ -10,8 +10,8 @@ export function formatDateTaken(dateTakenAsSeconds) {
 export default function Photo(props) {
     return (
         <div className="photo">
-            <a href={props.link}>
-                <img src={props.url} alt={props.search}/>
+            <a href={props.linkUrl}>
+                <img src={props.snapshotUrl} alt={props.search}/>
                 <div>
                     Taken on: {formatDateTaken(props.dateTaken) }
                 </div>

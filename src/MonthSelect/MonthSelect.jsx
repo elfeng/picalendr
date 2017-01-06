@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TWELVE_MONTHS } from './Month.js';
+import { TWELVE_MONTHS } from '../Month.js';
 
 export default class MonthSelect extends Component {
 

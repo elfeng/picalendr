@@ -19,7 +19,7 @@ export function getPhotoInfoUrl({id}) {
     return `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&format=json&nojsoncallback=1&api_key=${API_KEY}&photo_id=${id}`;
 };
 
-export function getPhotoFileUrl({farm, server, id, secret}){
+export function getPhotoSnapshotUrl({farm, server, id, secret}){
     return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
 };
 

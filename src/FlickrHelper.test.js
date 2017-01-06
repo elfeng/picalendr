@@ -1,4 +1,4 @@
-import { getSearchUrl, getPhotoFileUrl } from './FlickrHelper.js';
+import { getSearchUrl, getPhotoSnapshotUrl } from './FlickrHelper.js';
 import { TWELVE_MONTHS } from './Month.js';
 
 test('getSearchUrl should have dates', () => {
@@ -13,6 +13,6 @@ test('getPhotoFileUrl', () => {
         id: 3, 
         secret: "secret4"
     };
-    expect(getPhotoFileUrl(photoInfo)).toBe("https://farm1.staticflickr.com/2/3_secret4.jpg");
+    expect(getPhotoSnapshotUrl(photoInfo)).toBe("https://farm1.staticflickr.com/2/3_secret4.jpg");
 });
 

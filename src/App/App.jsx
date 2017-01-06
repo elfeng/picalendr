@@ -1,8 +1,8 @@
 import './App.css';
 import React, { Component } from 'react';
-import MonthSelect from './MonthSelect.jsx';
-import YearSelect from './YearSelect.jsx';
-import PhotoListContainer from './PhotoListContainer.jsx';
+import MonthSelect from '../MonthSelect/MonthSelect';
+import YearSelect from '../YearSelect/YearSelect';
+import PhotoListContainer from '../PhotoListContainer/PhotoListContainer';
 
 class App extends Component {
 
