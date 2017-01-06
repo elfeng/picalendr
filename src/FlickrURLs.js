@@ -23,6 +23,3 @@ export function getPhotoSnapshotUrl({farm, server, id, secret}){
     return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
 };
 
-export function getPhotoLinkUrl(photo){
-    return photo.urls.url[0]._content;
-};

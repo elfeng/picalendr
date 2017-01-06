@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PhotoList from '../PhotoList/PhotoList';
-import { getSearchUrl } from '../FlickrHelper.js';
+import { getSearchUrl } from '../FlickrURLs.js';
 
 export default class PhotoListContainer extends Component {
 
@@ -18,7 +18,7 @@ export default class PhotoListContainer extends Component {
     }
 
     /**
-     * Calls the Flickr API ton search for photos.
+     * Calls the Flickr API to search for photos.
      */
     getPhotos(search, month, year) {
 
