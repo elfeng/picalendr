@@ -13,9 +13,10 @@ export default class YearSelect extends Component {
 
     render() {
 
-        const yearOptions = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017].map(year =>
-            <option key={year} value={year}>{year}</option>
-        );
+        const yearOptions = [];
+        for (let year = 2016; year >= 2000; year--){
+            yearOptions.push(<option key={year} value={year}>{year}</option>);
+        }
 
         return (
             <select onChange={this.selectYear} className="form-control" required>
