@@ -10,18 +10,14 @@ export default class PhotoListContainer extends Component {
         this.state = {
             searchResults: null
         };
-        this.getPhotos = this.getPhotos.bind(this);
+        this.getPhotosFromFlickr = this.getPhotosFromFlickr.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.getPhotos(nextProps.search, nextProps.month, nextProps.year);
+        this.getPhotosFromFlickr(nextProps.search, nextProps.month, nextProps.year);
     }
 
-    /**
-     * Calls the Flickr API to search for photos.
-     */
-    getPhotos(search, month, year) {
-
+    getPhotosFromFlickr(search, month, year) {
         const self = this;
         const searchUrl = getSearchUrl(search, month, year);
         axios.get(searchUrl)
@@ -37,28 +33,14 @@ export default class PhotoListContainer extends Component {
         return this.state.searchResults !== null;
     }
 
-    hasSearchReturnedWithResults() {
-        return this.hasSearchReturned() && this.state.searchResults.length > 0;
-    }
-
-    hasSearchReturnedEmpty() {
-        return this.hasSearchReturned() && this.state.searchResults.length === 0;
-    }
-
     render() {
 
         let componentToRender = null;
-        if (this.hasSearchReturnedWithResults()) {
+        if (this.hasSearchReturned()){
             componentToRender = <PhotoList photoList={this.state.searchResults} />;
-        } else if (this.hasSearchReturnedEmpty()){
-            componentToRender = <span>No photo found</span>;
         }
 
-        return (
-            <div>
-                {componentToRender}
-            </div>
-        );
+        return (componentToRender);
     }
 
 };

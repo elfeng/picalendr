@@ -15,8 +15,8 @@ export function getSearchUrl(search, month, year){
     max_taken_date=${month.getMaxDateAsSeconds(year)}`;
 };
 
-export function getPhotoInfoUrl({id}) {
-    return `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&format=json&nojsoncallback=1&api_key=${API_KEY}&photo_id=${id}`;
+export function getPhotoInfoUrl(photoId) {
+    return `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&format=json&nojsoncallback=1&api_key=${API_KEY}&photo_id=${photoId}`;
 };
 
 export function getPhotoSnapshotUrl({farm, server, id, secret}){

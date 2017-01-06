@@ -11,9 +11,9 @@ export default class FlickrPhotoWrapper {
     }
 
     isDateTakenKnown() {
-        const takenunknown = this.photo.dates.takenunknown;
+        const takenunknown = parseInt(this.photo.dates.takenunknown, 10);
         return this.photo.dates.taken !== null &&
-            (takenunknown === "0" || takenunknown === 0) &&
+            takenunknown === 0 &&
             this.isGranularityPreciseEnough();
     }
 
@@ -21,7 +21,7 @@ export default class FlickrPhotoWrapper {
      * see https://www.flickr.com/services/api/misc.dates.html
      */
     isGranularityPreciseEnough() {
-        const granularity = this.photo.dates.takengranularity;
+        const granularity = parseInt(this.photo.dates.takengranularity, 10);
         return granularity < 5;
     }
 
