@@ -13,8 +13,8 @@ export default class PhotoListContainer extends Component {
         this.getPhotosFromFlickr = this.getPhotosFromFlickr.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.getPhotosFromFlickr(nextProps.search, nextProps.month, nextProps.year);
+    componentDidMount() {
+        this.getPhotosFromFlickr(this.props.search, this.props.month, this.props.year);
     }
 
     getPhotosFromFlickr(search, month, year) {

@@ -43,6 +43,12 @@ class App extends Component {
 
   render() {
 
+    const currentMillis = Date.now();
+    let searchResults = null;
+    if (this.state.search && this.state.month && this.state.year){
+      searchResults = <PhotoListContainer key={currentMillis} search={this.state.search} month={this.state.month} year={this.state.year}/>;
+    }
+
     return (
       <div className="App">
 
@@ -79,7 +85,7 @@ class App extends Component {
           </div>
         </form>
 
-        <PhotoListContainer search={this.state.search} month={this.state.month} year={this.state.year}/>
+        {searchResults}
       </div>
     );
   }
