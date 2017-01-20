@@ -40,25 +40,6 @@ describe("isDateTakenKnown", () => {
         expect(photo.isDateTakenKnown()).toBe(false);
     });
 
-    it("should return false when the takenunknown attribute is not equal to 0", () => {
-
-        const infoResponse = {
-            "photo": {
-                "dateuploaded": "1473426706",
-                "dates": {
-                    "posted": "1473426706",
-                    "taken": "2016-09-04 21:17:35",
-                    "takengranularity": "0",
-                    "takenunknown": "1",
-                    "lastupdate": "1473427921"
-                },
-            }
-        };
-
-        const photo = new FlickrPhotoWrapper(infoResponse);
-        expect(photo.isDateTakenKnown()).toBe(false);
-    });
-
     it("should return true when the taken date is known", () => {
 
         const infoResponse = {

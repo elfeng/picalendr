@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+
 import axios from 'axios';
+import React, { Component } from 'react';
 import PhotoList from '../PhotoList/PhotoList';
 import { getSearchUrl } from '../FlickrURLs.js';
 
@@ -8,7 +9,7 @@ export default class PhotoListContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchResults: null
+            searchResults: []
         };
         this.getPhotosFromFlickr = this.getPhotosFromFlickr.bind(this);
     }
@@ -30,7 +31,7 @@ export default class PhotoListContainer extends Component {
     }
 
     hasSearchReturned() {
-        return this.state.searchResults !== null;
+        return this.state.searchResults !== [];
     }
 
     render() {

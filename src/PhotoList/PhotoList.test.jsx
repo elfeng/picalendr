@@ -23,3 +23,23 @@ it('should render a div when photos are passed', () => {
     const result = renderer.getRenderOutput();
     expect(result.type).toBe("div");
 });
+
+describe("getNextLastPhotoIndex", () => {
+
+    it("should return 0 with an empty list", () => {
+        const component = new PhotoList({
+            photoList: []
+        });
+        expect(component.getNextLastPhotoIndex()).toBe(0);
+    });
+    
+    it("should return 1 with 1 photo", () => {
+        const component = new PhotoList({
+            photoList: [{
+                id: 1
+            }]
+        });
+        expect(component.getNextLastPhotoIndex()).toBe(0);
+    });
+
+});

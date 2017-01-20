@@ -3,6 +3,7 @@ const API_KEY = 'TMP_KEY';
 const SAFE_SEARCH_ACTIVATED = 1;
 
 export function getSearchUrl(search, month, year) {
+
     return `https://api.flickr.com/services/rest/?method=flickr.photos.search&
     api_key=${API_KEY}&
     per_page=200&

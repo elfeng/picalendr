@@ -11,9 +11,7 @@ export default class FlickrPhotoWrapper {
     }
 
     isDateTakenKnown() {
-        const takenunknown = parseInt(this.photo.dates.takenunknown, 10);
         return this.photo.dates.taken !== null &&
-            takenunknown === 0 &&
             this.isGranularityPreciseEnough();
     }
 
