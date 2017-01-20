@@ -2,16 +2,22 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import PhotoList from '../PhotoList/PhotoList';
+import PhotoContainer from '../PhotoContainer/PhotoContainer';
 import { getSearchUrl } from '../FlickrURLs.js';
+
+const NB_PHOTOS_TO_DOWNLOAD = 10;
 
 export default class PhotoListContainer extends Component {
 
     constructor(props) {
         super(props);
+        this.photoContainers = [];
         this.state = {
-            searchResults: []
+            searchResults: null,
+            photoContainers: []
         };
         this.getPhotosFromFlickr = this.getPhotosFromFlickr.bind(this);
+        this.showMorePhotos = this.showMorePhotos.bind(this);
     }
 
     componentDidMount() {
@@ -25,20 +31,44 @@ export default class PhotoListContainer extends Component {
             .then(searchResponse => {
                 self.setState({
                     searchResults: searchResponse.data.photos.photo
-                })
+                });
+                self.showMorePhotos();
             })
             .catch(searchError => console.log(searchError));
     }
 
-    hasSearchReturned() {
-        return this.state.searchResults !== [];
+    getNextLastPhotoIndex() {
+        const lastPhotoIndex = this.state.photoContainers.length;
+        const nbPhotosRemaining = this.state.searchResults.length - lastPhotoIndex;
+        if (nbPhotosRemaining > NB_PHOTOS_TO_DOWNLOAD) {
+            return lastPhotoIndex + NB_PHOTOS_TO_DOWNLOAD;
+        } else if (nbPhotosRemaining > 0) {
+            return lastPhotoIndex + nbPhotosRemaining;
+        } else {
+            return lastPhotoIndex;
+        }
+    }
+
+    showMorePhotos() {
+        const lastPhotoIndex = this.getNextLastPhotoIndex();
+        for (let i = this.state.photoContainers.length; i < lastPhotoIndex; i++) {
+            const photo = this.state.searchResults[i];
+            this.photoContainers.push(<PhotoContainer key={photo.id} photoId={photo.id} />)
+        }
+        this.setState({
+            photoContainers: this.photoContainers
+        })
     }
 
     render() {
 
         let componentToRender = null;
-        if (this.hasSearchReturned()){
-            componentToRender = <PhotoList photoList={this.state.searchResults} />;
+        if (this.state.searchResults !== null) {
+            componentToRender =
+                <PhotoList
+                    nbSearchResults={this.state.searchResults.length} 
+                    photoContainers={this.state.photoContainers} 
+                    showMorePhotos={this.showMorePhotos}/>;
         }
 
         return (componentToRender);
