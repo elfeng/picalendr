@@ -5,8 +5,9 @@ A webapp to search Flickr photos by month
  
 * ECMAScript
 * React
+* axios
 * create-react-app 
 * Jest
-* Yarn
-
-WORK IN PROGRESS
+* Yarn/npm
+* Bootstrap 3
+* Docker
