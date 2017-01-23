@@ -86,9 +86,16 @@ class App extends Component {
         </form>
 
         {searchResults}
+
+        <div className="App-footer">
+          <a href="https://jffourmond.github.io/">blog</a> -&nbsp;
+          <a href="https://www.flickr.com/photos/21668212@N02/albums">Flickr</a> -&nbsp;
+          <a href="https://github.com/jffourmond">GitHub</a> -&nbsp;
+          <a href="https://twitter.com/jf_fourmond">Twitter</a>
+        </div>
       </div>
     );
-  }
+  } 
 }
 
 export default App;
