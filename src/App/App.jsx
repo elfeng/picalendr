@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {};
 
     this.searchPhotos = this.searchPhotos.bind(this);
     this.onInputChange = this.onInputChange.bind(this);

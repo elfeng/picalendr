@@ -21,4 +21,3 @@ it('should match the snapshot', () => {
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
-

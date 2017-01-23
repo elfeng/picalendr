@@ -35,6 +35,9 @@ export default class FlickrPhotoWrapper {
         return this.photo.title._content;
     }
 
+    /**
+     * returns a formatted date such as April 1, 2015. 
+     */
     getDateTakenFormatted() {
         const dateTakenAsMillis = Date.parse(this.photo.dates.taken);
         const dateTakenAsMoment = moment(dateTakenAsMillis);
