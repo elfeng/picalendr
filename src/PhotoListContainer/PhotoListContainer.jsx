@@ -5,7 +5,7 @@ import PhotoList from '../PhotoList/PhotoList';
 import PhotoContainer from '../PhotoContainer/PhotoContainer';
 import { getSearchUrl } from '../FlickrURLs.js';
 
-const NB_PHOTOS_TO_DOWNLOAD = 10;
+const NB_PHOTOS_TO_DOWNLOAD = 15;
 
 export default class PhotoListContainer extends Component {
 
@@ -37,6 +37,9 @@ export default class PhotoListContainer extends Component {
             .catch(searchError => console.log(searchError));
     }
 
+    /**
+     * @return {number} the index of the last photo that will be displayed if more photos are shown.
+     */
     getNextLastPhotoIndex() {
         const lastPhotoIndex = this.state.photoContainers.length;
         const nbPhotosRemaining = this.state.searchResults.length - lastPhotoIndex;
@@ -49,15 +52,21 @@ export default class PhotoListContainer extends Component {
         }
     }
 
-    showMorePhotos() {
+    buildNewPhotoContainers() {
         const lastPhotoIndex = this.getNextLastPhotoIndex();
         for (let i = this.state.photoContainers.length; i < lastPhotoIndex; i++) {
             const photo = this.state.searchResults[i];
             this.photoContainers.push(<PhotoContainer key={photo.id} photoId={photo.id} />)
         }
-        this.setState({
-            photoContainers: this.photoContainers
-        })
+    }
+
+    showMorePhotos() {
+        if (this.state.searchResults !== null) {
+            this.buildNewPhotoContainers();
+            this.setState({
+                 photoContainers: this.photoContainers
+            });
+        }
     }
 
     render() {
@@ -66,8 +75,8 @@ export default class PhotoListContainer extends Component {
         if (this.state.searchResults !== null) {
             componentToRender =
                 <PhotoList
-                    nbSearchResults={this.state.searchResults.length} 
-                    photoContainers={this.state.photoContainers} 
+                    nbSearchResults={this.state.searchResults.length}
+                    photoContainers={this.state.photoContainers}
                     showMorePhotos={this.showMorePhotos}/>;
         }
 

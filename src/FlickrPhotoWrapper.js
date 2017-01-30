@@ -12,6 +12,7 @@ export default class FlickrPhotoWrapper {
 
     isDateTakenKnown() {
         return this.photo.dates.taken !== null &&
+            this.isTakenunknownAttributeFalse() &&
             this.isGranularityPreciseEnough();
     }
 
@@ -21,6 +22,11 @@ export default class FlickrPhotoWrapper {
     isGranularityPreciseEnough() {
         const granularity = parseInt(this.photo.dates.takengranularity, 10);
         return granularity < 5;
+    }
+
+    isTakenunknownAttributeFalse(){
+        const takenunknown = parseInt(this.photo.dates.takenunknown, 10);
+        return takenunknown === 0;
     }
 
     getSnapshotUrl() {

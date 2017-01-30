@@ -24,7 +24,7 @@ export default class PhotoContainer extends Component {
         axios.get(infoUrl)
             .then(infoResponse => self.handlePhotoInfoResponse(infoResponse))
             .catch(error => console.log(error));
-    }
+    };
 
     handlePhotoInfoResponse(infoResponse) {
         const photoWrapper = new FlickrPhotoWrapper(infoResponse.data);
@@ -41,9 +41,9 @@ export default class PhotoContainer extends Component {
         let photoWrapper = this.state.photoWrapper;
         if (photoWrapper !== null) {
             componentToRender = <Photo id={photoWrapper.photo.id}
-                snapshotUrl={photoWrapper.getSnapshotUrl()} linkUrl={photoWrapper.getLinkUrl()}
-                dateTakenFormatted={photoWrapper.getDateTakenFormatted()} 
-                title={photoWrapper.getTitle()} />;
+                snapshotUrl={photoWrapper.getSnapshotUrl() } linkUrl={photoWrapper.getLinkUrl() }
+                dateTakenFormatted={photoWrapper.getDateTakenFormatted() }
+                title={photoWrapper.getTitle() } />;
         }
 
         return (componentToRender);
