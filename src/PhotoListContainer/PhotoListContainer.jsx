@@ -3,9 +3,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import PhotoList from '../PhotoList/PhotoList';
 import PhotoContainer from '../PhotoContainer/PhotoContainer';
-import { getSearchUrl } from '../FlickrURLs.js';
-
-const NB_PHOTOS_TO_DOWNLOAD = 15;
+import { getSearchUrl, NB_MAX_PHOTOS_PER_PAGE } from '../FlickrURLs.js';
 
 export default class PhotoListContainer extends Component {
 
@@ -38,13 +36,13 @@ export default class PhotoListContainer extends Component {
     }
 
     /**
-     * @return {number} the index of the last photo that will be displayed if more photos are shown.
+     * @return {number} the index of the last photo that will be displayed after we add more photos.
      */
     getNextLastPhotoIndex() {
         const lastPhotoIndex = this.state.photoContainers.length;
         const nbPhotosRemaining = this.state.searchResults.length - lastPhotoIndex;
-        if (nbPhotosRemaining > NB_PHOTOS_TO_DOWNLOAD) {
-            return lastPhotoIndex + NB_PHOTOS_TO_DOWNLOAD;
+        if (nbPhotosRemaining > NB_MAX_PHOTOS_PER_PAGE) {
+            return lastPhotoIndex + NB_MAX_PHOTOS_PER_PAGE;
         } else if (nbPhotosRemaining > 0) {
             return lastPhotoIndex + nbPhotosRemaining;
         } else {

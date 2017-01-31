@@ -19,7 +19,8 @@ export default class MonthSelect extends Component {
         );
 
         return (
-            <select onChange={this.selectMonth} className="form-control" required>
+            <select onChange={this.selectMonth} className="form-control" required
+                id="month">
                 <option value="">Month</option>
                 {monthOptions}
             </select>

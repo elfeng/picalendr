@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Photo from '../Photo/Photo';
 import FlickrPhotoWrapper from '../FlickrPhotoWrapper';
-import { getPhotoInfoUrl } from '../FlickrURLs';
+import { getPhotoInfoUrl, getPhotoExifUrl } from '../FlickrURLs';
 
 export default class PhotoContainer extends Component {
 
@@ -11,23 +11,30 @@ export default class PhotoContainer extends Component {
         this.state = {
             photoWrapper: null
         };
-        this.getPhotoInfoFromFlickr = this.getPhotoInfoFromFlickr.bind(this);
+        this.getPhotoDetailsFromFlickr = this.getPhotoDetailsFromFlickr.bind(this);
     }
 
     componentDidMount() {
-        this.getPhotoInfoFromFlickr(this.props.photoId);
+        this.getPhotoDetailsFromFlickr(this.props.photoId);
     }
 
-    getPhotoInfoFromFlickr(photoId) {
+    getPhotoDetailsFromFlickr(photoId) {
         const self = this;
         const infoUrl = getPhotoInfoUrl(photoId);
-        axios.get(infoUrl)
-            .then(infoResponse => self.handlePhotoInfoResponse(infoResponse))
+        const infoUrlPromise = axios.get(infoUrl);
+        const exifUrl = getPhotoExifUrl(photoId);
+        const exifUrlPromise = axios.get(exifUrl);
+
+        axios.all([infoUrlPromise, exifUrlPromise])
+            .then(axios.spread(function (infoResponse, exifResponse) {
+                self.handlePhotoInfoAndExifResponses(infoResponse, exifResponse);
+            }))
             .catch(error => console.log(error));
+
     };
 
-    handlePhotoInfoResponse(infoResponse) {
-        const photoWrapper = new FlickrPhotoWrapper(infoResponse.data);
+    handlePhotoInfoAndExifResponses(infoResponse, exifResponse) {
+        const photoWrapper = new FlickrPhotoWrapper(infoResponse.data, exifResponse.data);
         if (photoWrapper.isDateTakenKnown()) {
             this.setState({
                 photoWrapper: photoWrapper
@@ -42,7 +49,7 @@ export default class PhotoContainer extends Component {
         if (photoWrapper !== null) {
             componentToRender = <Photo id={photoWrapper.photo.id}
                 snapshotUrl={photoWrapper.getSnapshotUrl() } linkUrl={photoWrapper.getLinkUrl() }
-                dateTakenFormatted={photoWrapper.getDateTakenFormatted() }
+                dateTakenFormatted={photoWrapper.getDateTakenAsPlainText() }
                 title={photoWrapper.getTitle() } />;
         }
 

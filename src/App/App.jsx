@@ -65,6 +65,7 @@ class App extends Component {
             <div className="row App-form" >
               <div className="col-xs-12 col-sm-12 col-md-offset-2 col-md-3 col-lg-offset-2 col-lg-3 ">
                 <input type="text" onChange={this.onInputChange}
+                  id="search"
                   className="form-control"
                   autoFocus
                   required />

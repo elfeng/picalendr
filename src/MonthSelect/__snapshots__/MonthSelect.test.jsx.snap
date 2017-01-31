@@ -1,6 +1,7 @@
 exports[`test should match the snapshot 1`] = `
 <select
   className="form-control"
+  id="month"
   onChange={[Function]}
   required={true}>
   <option

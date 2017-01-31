@@ -1,19 +1,26 @@
 import moment from 'moment';
+import FlickrExifTagWrapper from './FlickrExifTagWrapper';
 import { getPhotoSnapshotUrl } from './FlickrURLs';
+import { some } from "lodash"
 
 /**
  * Wrapper for Flickr "getInfo" responses;
  */
 export default class FlickrPhotoWrapper {
 
-    constructor(photoInfo) {
+    constructor(photoInfo, photoExif) {
         this.photo = photoInfo.photo;
+        this.exifTags = [];
+        if (photoExif && photoExif.photo) {
+            this.exifTags = photoExif.photo.exif.map(tag => new FlickrExifTagWrapper(tag));
+        }
     }
 
     isDateTakenKnown() {
         return this.photo.dates.taken !== null &&
             this.isTakenunknownAttributeFalse() &&
-            this.isGranularityPreciseEnough();
+            this.isGranularityPreciseEnough() &&
+            this.hasAnExifTagWithDateTaken();
     }
 
     /**
@@ -24,9 +31,17 @@ export default class FlickrPhotoWrapper {
         return granularity < 5;
     }
 
-    isTakenunknownAttributeFalse(){
+    isTakenunknownAttributeFalse() {
         const takenunknown = parseInt(this.photo.dates.takenunknown, 10);
         return takenunknown === 0;
+    }
+
+    hasAnExifTagWithDateTaken() {
+        const dateTakenAsExif = this.getDateTakenWithExifFormat();
+        const tagWithDateTaken = some(this.exifTags, function (exifTag) {
+            return exifTag.isCreationTagWithDate(dateTakenAsExif);
+        });
+        return tagWithDateTaken;
     }
 
     getSnapshotUrl() {
@@ -41,13 +56,23 @@ export default class FlickrPhotoWrapper {
         return this.photo.title._content;
     }
 
-    /**
-     * returns a formatted date such as April 1, 2015. 
-     */
-    getDateTakenFormatted() {
+    getDateTakenAsMillis() {
         const dateTakenAsMillis = Date.parse(this.photo.dates.taken);
-        const dateTakenAsMoment = moment(dateTakenAsMillis);
-        return dateTakenAsMoment.format('LL');
+        return moment(dateTakenAsMillis);
+    }
+
+    /**
+     * @return a plain text date such as "April 1, 2015". 
+     */
+    getDateTakenAsPlainText() {
+        return this.getDateTakenAsMillis().format('LL');
+    }
+
+    /**
+     * @return an EXIF-formatted date such as "2015:04:01". 
+     */
+    getDateTakenWithExifFormat() {
+        return this.getDateTakenAsMillis().format('YYYY:MM:DD');
     }
 
 };

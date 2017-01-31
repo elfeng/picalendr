@@ -19,7 +19,8 @@ export default class YearSelect extends Component {
         }
 
         return (
-            <select onChange={this.selectYear} className="form-control" required>
+            <select onChange={this.selectYear} className="form-control" required
+                id="year">
                 <option value="">Year</option>
                 {yearOptions}
             </select>
