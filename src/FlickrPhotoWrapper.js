@@ -1,7 +1,7 @@
 import moment from 'moment';
 import FlickrExifTagWrapper from './FlickrExifTagWrapper';
 import { getPhotoSnapshotUrl } from './FlickrURLs';
-import { some } from "lodash"
+import { some, map } from "lodash"
 
 /**
  * Wrapper for Flickr "getInfo" responses;
@@ -12,7 +12,7 @@ export default class FlickrPhotoWrapper {
         this.photo = photoInfo.photo;
         this.exifTags = [];
         if (photoExif && photoExif.photo) {
-            this.exifTags = photoExif.photo.exif.map(tag => new FlickrExifTagWrapper(tag));
+            this.exifTags = map(photoExif.photo.exif, tag => new FlickrExifTagWrapper(tag));
         }
     }
 
