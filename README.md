@@ -20,4 +20,4 @@ A webapp to search Flickr photos by month
 4. `docker build -t picalendr .`
 5. `sudo docker run -p 3001:3001 --name picalendr -t picalendr`
 
-You can have a look at the webapp here : http://picalendr.jffourmond.com/
+You can have a look at the webapp here : http://www.picalendr.com
