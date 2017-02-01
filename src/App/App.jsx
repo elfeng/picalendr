@@ -30,7 +30,6 @@ class App extends Component {
   }
 
   searchPhotos(event) {
-
     event.preventDefault();
     if (this.search && this.month && this.month) {
       this.setState({
@@ -112,7 +111,7 @@ class App extends Component {
               <p>
                 To make sure the photos are useful to you, dates are double-checked using EXIF tags.
                 As a consequence, photos without EXIF tags are not shown.
-                And sadly, nothing can detect a camera with incorrect date/time settings.
+                And be careful: nothing can detect a camera with incorrect date/time settings.
               </p>
               <div className="App-footer">
                 <a href="https://jffourmond.github.io/">blog</a> -&nbsp;
