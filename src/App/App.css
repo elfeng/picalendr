@@ -9,7 +9,21 @@
   color: white;
   padding-top: 20px;
   padding-bottom: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.App-header h1 {
+  font-size: 26px;
+}
+
+.App-header h2 {
+  padding-top: 5px;
+  font-size: 19px;
+}
+
+.App-header h1, h2 {
+  display: inline;
   text-align: left;
 }
 
@@ -18,29 +32,29 @@
   padding-bottom: 5px;
 }
 
+.App-intro {
+  text-align: justify;
+  padding-left: 20px;
+}
+
+.App-photos {
+  text-align: center;
+  padding: 0px;
+}
+
+.App-intro h2 {
+  font-size: 22px;
+}
+
+p {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
 .form-control, .btn {
   margin-bottom: 10px;
 }
 
-h1 {
-  font-size: 26px;
-}
-
-h2 {
-  padding-top: 5px;
-  font-size: 19px;
-}
-
-h1, h2 {
-  display: inline;
-  text-align: left;
-}
-
 .App-footer {
-  background-color: black;
-  color: white;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  text-align: center;
 }
