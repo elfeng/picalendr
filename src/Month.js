@@ -16,6 +16,10 @@ export class Month {
     getMaxDateAsSeconds(year){
          return new Date(year, this.number, 1).getTime() / 1000;
     }
+
+    isNotAfterCurrentMonth(){
+        return this.number <= new Date().getMonth() + 1;
+    }
 };
 
 export const TWELVE_MONTHS = [

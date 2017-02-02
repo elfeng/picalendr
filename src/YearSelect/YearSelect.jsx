@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
-export default class YearSelect extends Component {
+export function getCurrentYear() {
+    return new Date().getFullYear();
+}
+
+export class YearSelect extends Component {
 
     constructor(props) {
         super(props);
@@ -14,7 +18,8 @@ export default class YearSelect extends Component {
     render() {
 
         const yearOptions = [];
-        for (let year = 2016; year >= 2000; year--){
+        const currentYear = getCurrentYear();
+        for (let year = currentYear; year >= 2000; year--) {
             yearOptions.push(<option key={year} value={year}>{year}</option>);
         }
 

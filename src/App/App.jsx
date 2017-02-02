@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import MonthSelect from '../MonthSelect/MonthSelect';
-import YearSelect from '../YearSelect/YearSelect';
+import { YearSelect, getCurrentYear } from '../YearSelect/YearSelect';
 import PhotoListContainer from '../PhotoListContainer/PhotoListContainer';
 
 class App extends Component {
@@ -29,9 +29,14 @@ class App extends Component {
     this.year = year;
   }
 
+  isDateSelectedAndNotInTheFuture() {
+    return this.month && this.year &&
+      (this.year < getCurrentYear() || this.month.isNotAfterCurrentMonth());
+  }
+
   searchPhotos(event) {
     event.preventDefault();
-    if (this.search && this.month && this.month) {
+    if (this.search && this.year && this.month) {
       this.setState({
         search: this.search,
         month: this.month,
@@ -44,7 +49,7 @@ class App extends Component {
 
     const currentMillis = Date.now();
     let searchResults = null;
-    if (this.state.search && this.state.month && this.state.year) {
+    if (this.state.search && this.isDateSelectedAndNotInTheFuture()) {
       searchResults = <PhotoListContainer key={currentMillis} search={this.state.search} month={this.state.month} year={this.state.year}/>;
     }
 
@@ -56,7 +61,7 @@ class App extends Component {
 
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-offset-2 col-md-10 col-lg-offset-2 col-lg-10 ">
-                <h1>Picalendr:&nbsp;</h1>
+                <h1>Picalendr: &nbsp; </h1>
                 <h2>Flickr search by month</h2>
               </div>
             </div>
@@ -89,7 +94,7 @@ class App extends Component {
 
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-offset-1 col-md-5 col-md-offset-1 col-lg-5 App-photos">
-                {searchResults}
+              {searchResults}
             </div>
             <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 App-intro">
               <h2>Welcome to Picalendr!</h2>
@@ -102,9 +107,9 @@ class App extends Component {
                 This site is meant to help you plan your next trip, by showing you pictures of your destination
                 at the time of the year you wish to travel.
                 Was there snow last year in April at your favorite ski resort?
-                When should you visit the Salar de Uyuni to see the incredible mirror effect? 
-                What is the best month to see the rice terraces of Yuanyang? 
-                Sometimes it's hard to find the relevant information on the web, and Google Images won't be of any help. 
+                When should you visit the Salar de Uyuni to see the incredible mirror effect?
+                What is the best month to see the rice terraces of Yuanyang?
+                Sometimes it's hard to find the relevant information on the web, and Google Images won't be of any help.
                 This is where Picalendr comes to the rescue.
               </p>
               <h2>How does it work?</h2>

@@ -9,6 +9,10 @@ exports[`test should match the snapshot 1`] = `
     Year
   </option>
   <option
+    value={2017}>
+    2017
+  </option>
+  <option
     value={2016}>
     2016
   </option>
