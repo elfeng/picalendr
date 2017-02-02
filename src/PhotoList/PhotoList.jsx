@@ -1,4 +1,5 @@
 import React from 'react';
+import './PhotoList.css';
 
 export default function PhotoList(props) {
 
@@ -8,7 +9,7 @@ export default function PhotoList(props) {
     } else {
         let morePhotosButton = null;
         if (props.nbSearchResults > props.photoContainers.length) {
-            morePhotosButton = <button onClick={props.showMorePhotos} className="btn btn-default">Show more photos</button>;
+            morePhotosButton = <button onClick={props.showMorePhotos} className="btn btn-default showMore">Show more photos</button>;
         }
 
         return (

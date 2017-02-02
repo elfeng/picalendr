@@ -17,7 +17,7 @@ export default class FlickrPhotoWrapper {
     }
 
     isDateTakenKnown() {
-        return this.photo.dates.taken !== null &&
+        return this.photo && this.photo.dates.taken !== null &&
             this.isTakenunknownAttributeFalse() &&
             this.isGranularityPreciseEnough() &&
             this.hasAnExifTagWithDateTaken();

@@ -15,32 +15,30 @@ export default class PhotoContainer extends Component {
     }
 
     componentDidMount() {
-        this.getPhotoDetailsFromFlickr(this.props.photoId);
+        const self = this;
+        this.getPhotoDetailsFromFlickr(this.props.photoId)
+            .then(photoWrapper => {
+                if (photoWrapper.isDateTakenKnown()) {
+                    self.setState({
+                        photoWrapper: photoWrapper
+                    });
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     getPhotoDetailsFromFlickr(photoId) {
-        const self = this;
         const infoUrl = getPhotoInfoUrl(photoId);
         const infoUrlPromise = axios.get(infoUrl);
         const exifUrl = getPhotoExifUrl(photoId);
         const exifUrlPromise = axios.get(exifUrl);
 
-        axios.all([infoUrlPromise, exifUrlPromise])
+        return axios.all([infoUrlPromise, exifUrlPromise])
             .then(axios.spread(function (infoResponse, exifResponse) {
-                self.handlePhotoInfoAndExifResponses(infoResponse, exifResponse);
-            }))
-            .catch(error => console.log(error));
-
+                const photoWrapper = new FlickrPhotoWrapper(infoResponse.data, exifResponse.data);
+                return photoWrapper;
+            }));
     };
-
-    handlePhotoInfoAndExifResponses(infoResponse, exifResponse) {
-        const photoWrapper = new FlickrPhotoWrapper(infoResponse.data, exifResponse.data);
-        if (photoWrapper.isDateTakenKnown()) {
-            this.setState({
-                photoWrapper: photoWrapper
-            });
-        }
-    }
 
     render() {
 

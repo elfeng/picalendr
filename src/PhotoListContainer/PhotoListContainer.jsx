@@ -14,25 +14,25 @@ export default class PhotoListContainer extends Component {
             searchResults: null,
             photoContainers: []
         };
-        this.getPhotosFromFlickr = this.getPhotosFromFlickr.bind(this);
+        this.searchFlickr = this.searchFlickr.bind(this);
         this.showMorePhotos = this.showMorePhotos.bind(this);
     }
 
     componentDidMount() {
-        this.getPhotosFromFlickr(this.props.search, this.props.month, this.props.year);
-    }
-
-    getPhotosFromFlickr(search, month, year) {
         const self = this;
-        const searchUrl = getSearchUrl(search, month, year);
-        axios.get(searchUrl)
+        this.searchFlickr(this.props.search, this.props.month, this.props.year)
             .then(searchResponse => {
                 self.setState({
                     searchResults: searchResponse.data.photos.photo
                 });
-                self.showMorePhotos();
+                this.showMorePhotos();
             })
             .catch(searchError => console.log(searchError));
+    }
+
+    searchFlickr(search, month, year) {
+        const searchUrl = getSearchUrl(search, month, year);
+        return axios.get(searchUrl);
     }
 
     /**
@@ -62,7 +62,7 @@ export default class PhotoListContainer extends Component {
         if (this.state.searchResults !== null) {
             this.buildNewPhotoContainers();
             this.setState({
-                 photoContainers: this.photoContainers
+                photoContainers: this.photoContainers
             });
         }
     }
