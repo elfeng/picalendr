@@ -5,8 +5,13 @@ COPY . /docker/picalendr
 WORKDIR /docker/picalendr
 
 RUN npm install
-RUN npm run build
-RUN npm install -g pushstate-server
 
+ENV TZ=CET
+ENV CI=true
+RUN npm test
+
+RUN npm run build
+
+RUN npm install -g pushstate-server
 CMD [ "pushstate-server", "build", "3001" ]
 
