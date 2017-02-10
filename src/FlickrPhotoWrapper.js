@@ -44,6 +44,10 @@ export default class FlickrPhotoWrapper {
         return tagWithDateTaken;
     }
 
+    getId(){
+        return this.photo.id;
+    }
+
     getSnapshotUrl() {
         return getPhotoSnapshotUrl(this.photo);
     }

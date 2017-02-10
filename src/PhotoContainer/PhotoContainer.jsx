@@ -45,7 +45,7 @@ export default class PhotoContainer extends Component {
         let componentToRender = null;
         let photoWrapper = this.state.photoWrapper;
         if (photoWrapper !== null) {
-            componentToRender = <Photo id={photoWrapper.photo.id}
+            componentToRender = <Photo id={photoWrapper.getId()}
                 snapshotUrl={photoWrapper.getSnapshotUrl() } linkUrl={photoWrapper.getLinkUrl() }
                 dateTakenFormatted={photoWrapper.getDateTakenAsPlainText() }
                 title={photoWrapper.getTitle() } />;
