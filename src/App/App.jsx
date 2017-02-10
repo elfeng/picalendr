@@ -71,6 +71,7 @@ class App extends Component {
                 <input type="text" onChange={this.onInputChange}
                   id="picalendr-search" name="picalendr-search"
                   className="form-control"
+                  placeholder="Place, city, country or event"
                   autoFocus
                   required />
               </div>
