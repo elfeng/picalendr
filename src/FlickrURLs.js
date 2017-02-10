@@ -1,5 +1,5 @@
 
-const API_KEY = 'TMP_KEY';
+const API_KEY = 'FLICKR_KEY';
 const PHOTOS_ONLY = 1;
 const SAFE_SEARCH_ACTIVATED = 1;
 const NB_MAX_SEARCH_RESULTS = 200;
