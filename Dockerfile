@@ -10,6 +10,7 @@ ENV TZ=CET
 ENV CI=true
 RUN npm test
 
+RUN date > public/version.txt
 RUN npm run build
 
 RUN npm install -g pushstate-server

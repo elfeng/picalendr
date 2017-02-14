@@ -12,7 +12,6 @@ pipeline {
             steps {
                 sh "sed -ie s/FLICKR_KEY/$FLICKR_KEY/ src/FlickrURLs.js"
                 sh "sed -ie s/GA_KEY/$GA_KEY/ public/index.html"
-                sh "date > public/version.txt"
             }
        }
        
