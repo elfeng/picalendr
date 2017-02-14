@@ -17,6 +17,9 @@ pipeline {
        
        stage('Build image'){
             steps {
+                echo "Deleting old image $APP_NAME ..."
+                ssh("sudo docker rmi $APP_NAME")       
+                echo "Building new image $APP_NAME ..."
                 sh "docker build -t picalendr ."
             }
        }       
@@ -27,12 +30,10 @@ pipeline {
                     def containerId = ssh("sudo docker ps -a -q --filter name=$APP_NAME --format=\"{{.ID}}\" ")
                     echo "Container Id to stop : $containerId"
                     if (containerId){
-        	                echo "Stopping old container $containerId ..."
-        	                ssh("sudo docker stop $containerId")
+                            echo "Stopping old container $containerId ..."
+                            ssh("sudo docker stop $containerId")
                             echo "Deleting old container ${containerId} ..."
-        	                ssh("sudo docker rm $containerId")
-                            echo "Deleting old image $APP_NAME ..."
-        	                ssh("sudo docker rmi $APP_NAME")
+                            ssh("sudo docker rm $containerId")
                     } 
                 }
             }
