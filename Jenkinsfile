@@ -16,9 +16,7 @@ pipeline {
        }
        
        stage('Build image'){
-            steps {
-                echo "Deleting old image $APP_NAME ..."
-                ssh("sudo docker rmi $APP_NAME")       
+            steps {                 
                 echo "Building new image $APP_NAME ..."
                 sh "docker build -t picalendr ."
             }
