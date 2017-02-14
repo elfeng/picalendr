@@ -7,12 +7,6 @@ pipeline {
     agent any
 
     stages {
-/*
-       stage('Checkout') { 
-            steps {
-                git url: 'https://github.com/jffourmond/picalendr.git'
-            }
-       }*/
        
        stage('Edit files') {
             steps {
