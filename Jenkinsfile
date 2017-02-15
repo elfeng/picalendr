@@ -22,7 +22,7 @@ pipeline {
        stage('Build image'){
             steps {                 
                 echo "Building new image $APP_NAME ..."
-                sh "docker build -t picalendr ."
+                sh "docker build -t $APP_NAME ."
                 sh "docker tag $APP_NAME $DOCKER_REGISTRY/$APP_NAME"
                 sh "docker push $DOCKER_REGISTRY/$APP_NAME"
             }
