@@ -1,4 +1,3 @@
-
 const API_KEY = 'FLICKR_KEY';
 const PHOTOS_ONLY = 1;
 const SAFE_SEARCH_ACTIVATED = 1;
