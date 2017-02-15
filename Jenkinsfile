@@ -2,6 +2,10 @@ def ssh(remoteCommand){
     return sh(returnStdout: true, script: "ssh $SSH_TARGET $remoteCommand")
 }
 
+def silentSh(cmd){
+    sh '#!/bin/sh -e\n' + cmd
+}
+
 pipeline {
 
     agent any
@@ -10,8 +14,8 @@ pipeline {
        
        stage('Edit files') {
             steps {
-                sh "sed -ie s/FLICKR_KEY/$FLICKR_KEY/ src/FlickrURLs.js"
-                sh "sed -ie s/GA_KEY/$GA_KEY/ public/index.html"
+                silentSh("sed -ie s/FLICKR_KEY/$FLICKR_KEY/ src/FlickrURLs.js")
+                silentSh("sed -ie s/GA_KEY/$GA_KEY/ public/index.html")
             }
        }
        
