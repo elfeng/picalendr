@@ -19,6 +19,8 @@ pipeline {
             steps {                 
                 echo "Building new image $APP_NAME ..."
                 sh "docker build -t picalendr ."
+                sh "docker tag $APP_NAME $DOCKER_REGISTRY/$APP_NAME"
+                sh "docker push $DOCKER_REGISTRY/$APP_NAME"
             }
        }       
        
@@ -37,31 +39,14 @@ pipeline {
             }
        }
        
-       stage('Ship image') {
-           steps {
-                script {
-                    sh "docker save picalendr -o $DOCKER_ARCHIVE_NAME"
-                    sh "scp $DOCKER_ARCHIVE_NAME $SSH_TARGET:$REMOTE_DOCKER_ARCHIVE_PATH"
-                }
-           }
-       }
-       
        stage('Run new container') {
            steps {
                 script {
-                    ssh("sudo docker load -i $REMOTE_DOCKER_ARCHIVE_PATH/$DOCKER_ARCHIVE_NAME")
+                    ssh("sudo docker pull $DOCKER_REGISTRY/$APP_NAME")
                     ssh("sudo docker run -d -p 3001:3001 --name $APP_NAME -t $APP_NAME")
                 }
            }
        }       
        
-       stage('Clean') {
-           steps {
-                script {
-                    sh "rm $DOCKER_ARCHIVE_NAME"
-                    ssh("rm $REMOTE_DOCKER_ARCHIVE_PATH/$DOCKER_ARCHIVE_NAME")
-                }
-           }
-       }          
     }   
 }    
