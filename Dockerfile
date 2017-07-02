@@ -1,4 +1,4 @@
-FROM node:7.4.0
+FROM node:8.1
 
 RUN mkdir -p /docker/picalendr
 COPY . /docker/picalendr
